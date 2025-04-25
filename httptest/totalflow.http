@@ -1,0 +1,49 @@
+@base = http://localhost:8880
+@sig = 12345678900
+
+### 1. Gerar HMAC (captura)
+# @name createHmac
+POST {{base}}/genhmac
+Content-Type: application/json
+
+{
+  "sig": "{{sig}}"
+}
+
+@hmac = {{createHmac.response.body.$.hmac}}
+@timestamp = {{createHmac.response.body.$.timestamp}}
+
+### 2. Testar self-protected usando o HMAC gerado
+POST {{base}}/selftest-protected
+Content-Type: application/json
+X-HMAC-Token: {{hmac}}
+X-HMAC-Timestamp: {{timestamp}}
+
+{
+  "sig": "{{sig}}"
+}
+
+
+### 3. Tokenizar string protegida
+# @name createToken
+POST {{base}}/tokenize
+Content-Type: application/json
+X-HMAC-Token: {{hmac}}
+X-HMAC-Timestamp: {{timestamp}}
+X-HMAC-Signature: {{sig}}
+
+{
+  "value": "thiagozs"
+}
+
+### 4. Destokenizar string usando o token capturado
+# @name destokenize
+POST {{base}}/detokenize
+Content-Type: application/json
+X-HMAC-Token: {{hmac}}
+X-HMAC-Timestamp: {{timestamp}}
+X-HMAC-Signature: {{sig}}
+
+{
+  "token": "{{createToken.response.body.$.token}}"
+}
