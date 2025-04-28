@@ -87,8 +87,8 @@ func (h *HandlerParams) GetHost() string {
 	return h.Config.GetHost()
 }
 
-func (h *HandlerParams) GetTimeout() string {
-	return h.Config.GetTimeout()
+func (h *HandlerParams) GetTolSec() string {
+	return h.Config.GetTolSec()
 }
 
 func (h *HandlerParams) SetPassphrase(passphrase string) {
@@ -107,8 +107,8 @@ func (h *HandlerParams) SetHost(host string) {
 	h.Config.SetHost(host)
 }
 
-func (h *HandlerParams) SetTimeout(timeout string) {
-	h.Config.SetTimeout(timeout)
+func (h *HandlerParams) SetTolSecs(timeout string) {
+	h.Config.SetTolSecs(timeout)
 }
 
 func (h *HandlerParams) GetHandlerParams() *HandlerParams {
@@ -118,4 +118,5 @@ func (h *HandlerParams) GetHandlerParams() *HandlerParams {
 func (h *HandlerParams) SetHandlerParams(params *HandlerParams) {
 	h.Config = params.Config
 	h.Crypto = params.Crypto
+	h.Token = params.Token
 }

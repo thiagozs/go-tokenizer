@@ -21,7 +21,7 @@ func main() {
 		log.Fatalf("Erro ao criar instância de criptografia simétrica: %v", err)
 	}
 
-	token, err := es.EncryptSymmetric([]byte(input))
+	token, err := es.EncryptSymmetric(input)
 	if err != nil {
 		log.Fatal("Erro ao criptografar:", err)
 	}

@@ -19,7 +19,7 @@ func TestEncryptDecryptSymmetric(t *testing.T) {
 		t.Fatalf("Erro ao criar instância de criptografia simétrica: %v", err)
 	}
 
-	token, err := es.EncryptSymmetric([]byte(original))
+	token, err := es.EncryptSymmetric(original)
 	if err != nil {
 		t.Fatalf("Erro ao criptografar: %v", err)
 	}
@@ -72,7 +72,7 @@ func TestEncryptSymmetricWithEmptyString(t *testing.T) {
 		t.Fatalf("Erro ao criar instância de criptografia simétrica: %v", err)
 	}
 
-	token, err := es.EncryptSymmetric([]byte(emptyString))
+	token, err := es.EncryptSymmetric(emptyString)
 	if err != nil {
 		t.Fatalf("Erro ao criptografar string vazia: %v", err)
 	}
@@ -105,7 +105,7 @@ func TestEncryptSymmetricWithSpecialCharacters(t *testing.T) {
 		t.Fatalf("Erro ao criar instância de criptografia simétrica: %v", err)
 	}
 
-	token, err := es.EncryptSymmetric([]byte(specialChars))
+	token, err := es.EncryptSymmetric(specialChars)
 	if err != nil {
 		t.Fatalf("Erro ao criptografar string com caracteres especiais: %v", err)
 	}
@@ -138,7 +138,7 @@ func TestEncryptSymmetricWithLongString(t *testing.T) {
 		t.Fatalf("Erro ao criar instância de criptografia simétrica: %v", err)
 	}
 
-	token, err := es.EncryptSymmetric([]byte(longString))
+	token, err := es.EncryptSymmetric(longString)
 	if err != nil {
 		t.Fatalf("Erro ao criptografar string longa: %v", err)
 	}
@@ -159,7 +159,6 @@ func TestEncryptSymmetricWithLongString(t *testing.T) {
 
 func TestEncryptSymmetricWithNilInput(t *testing.T) {
 	// Testar criptografia com entrada nula
-	var nilInput []byte
 
 	cfg, err := config.NewConfig()
 	if err != nil {
@@ -171,7 +170,7 @@ func TestEncryptSymmetricWithNilInput(t *testing.T) {
 		t.Fatalf("Erro ao criar instância de criptografia simétrica: %v", err)
 	}
 
-	token, err := es.EncryptSymmetric(nilInput)
+	token, err := es.EncryptSymmetric("")
 	if err != nil {
 		t.Fatalf("Erro ao criptografar entrada nula: %v", err)
 	}

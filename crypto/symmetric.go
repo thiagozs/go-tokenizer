@@ -29,7 +29,7 @@ func (s *Symmetric) deriveKey(pass []byte) ([]byte, error) {
 	return scrypt.Key(pass, []byte(s.Config.Salt), 1<<15, 8, 1, chacha20poly1305.KeySize)
 }
 
-func (s *Symmetric) EncryptSymmetric(plaintext []byte) (string, error) {
+func (s *Symmetric) EncryptSymmetric(plaintext string) (string, error) {
 	key, err := s.deriveKey([]byte(s.Config.Passphrase))
 	if err != nil {
 		return "", fmt.Errorf("erro ao derivar chave: %w", err)
@@ -45,7 +45,7 @@ func (s *Symmetric) EncryptSymmetric(plaintext []byte) (string, error) {
 		return "", fmt.Errorf("erro ao gerar nonce: %w", err)
 	}
 
-	cipher := aead.Seal(nil, nonce, plaintext, nil)
+	cipher := aead.Seal(nil, nonce, []byte(plaintext), nil)
 	data := append(nonce, cipher...)
 
 	return base64.RawURLEncoding.EncodeToString(data), nil

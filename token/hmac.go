@@ -10,8 +10,6 @@ import (
 	"github.com/thiagozs/go-tokenizer/config"
 )
 
-var secretKey = []byte("sua_chave_secreta_segura")
-
 type Token struct {
 	Config *config.Config
 }

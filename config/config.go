@@ -8,7 +8,7 @@ type Config struct {
 	SecretKey  string `json:"secret_key" env:"TKZ_SECRET_KEY" envDefault:"default-secret-key"`
 	Port       string `json:"port" env:"TKZ_PORT" envDefault:"8880"`
 	Host       string `json:"host" env:"TKZ_HOST" envDefault:"localhost"`
-	Timeout    string `json:"timeout" env:"TKZ_TIMEOUT" envDefault:"30"`
+	TolSecs    string `json:"timeout" env:"TKZ_TOLERANCE_SECS" envDefault:"30"` // segundos
 	Interval   string `json:"interval" env:"TKZ_INTERVAL" envDefault:"30"`
 }
 
@@ -38,8 +38,8 @@ func (c *Config) GetHost() string {
 	return c.Host
 }
 
-func (c *Config) GetTimeout() string {
-	return c.Timeout
+func (c *Config) GetTolSec() string {
+	return c.TolSecs
 }
 
 func (c *Config) GetSecretKey() string {
@@ -66,8 +66,8 @@ func (c *Config) SetHost(host string) {
 	c.Host = host
 }
 
-func (c *Config) SetTimeout(timeout string) {
-	c.Timeout = timeout
+func (c *Config) SetTolSecs(tolSecs string) {
+	c.TolSecs = tolSecs
 }
 
 func (c *Config) SetSecretKey(secretKey string) {
@@ -83,5 +83,8 @@ func (c *Config) SetConfig(cfg *Config) {
 	c.Salt = cfg.Salt
 	c.Port = cfg.Port
 	c.Host = cfg.Host
-	c.Timeout = cfg.Timeout
+	c.TolSecs = cfg.TolSecs
+	c.SecretKey = cfg.SecretKey
+	c.Interval = cfg.Interval
+	c.Passphrase = cfg.Passphrase
 }

@@ -64,7 +64,7 @@ func (h *Handlers) Tokenize(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := h.Crypto.EncryptSymmetric([]byte(req.Value))
+	token, err := h.Crypto.EncryptSymmetric(req.Value)
 	if err != nil {
 		http.Error(w, "Erro ao tokenizar", http.StatusInternalServerError)
 		return

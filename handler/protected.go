@@ -37,7 +37,13 @@ func (h *Handlers) ProtectedEndpoint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !h.Token.ValidateTimedHMAC(req.Signature, hmacHeader, ts, 120) {
+	interval, err := strconv.ParseInt(h.Config.GetInterval(), 10, 64)
+	if err != nil {
+		http.Error(w, "Intervalo inválido", http.StatusInternalServerError)
+		return
+	}
+
+	if !h.Token.ValidateTimedHMAC(req.Signature, hmacHeader, ts, interval) {
 		http.Error(w, "HMAC inválido ou expirado", http.StatusUnauthorized)
 		return
 	}
